@@ -5,22 +5,19 @@ jQuery(function($) {
     //pricing page stacktable
     $('.stacktable.flower-price-options').find('table').stacktable();
 
-    // detect if social is open or closed
-    var monarch_social = document.querySelector('.et_social_mobile_button');
-
-    var monarch_social_observer = new MutationObserver(function(mutations){
-      mutations.forEach(function(mutation){
-        var foo = mutation.target.getAttribute('class');
-        if(foo.indexOf('et_social_active_button') >= 0){
-          $('#footer-info').addClass('monarch-hidden');
-        } else {
-          $('#footer-info').removeClass('monarch-hidden');
-        }
-      });
+    // Add simple lightbox
+    $('.et_pb_lightbox_image').unbind('click');
+    var imageLinks = $("a[href$='.jpg'],a[href$='.jpeg'],a[href$='.png'],a[href$='.gif']").not('.social-share-link').not('.et_pb_gallery_image a, .envira-gallery-wrap a, .ngg-gallery-thumbnail a').attr('rel', 'gallery');
+  console.log(imageLinks);
+    imageLinks.magnificPopup({
+      type: 'image',
+      mainClass: 'mfp-fade',
+      gallery:{
+        enabled: true
+      },
+      midClick: true
     });
-    // configuration of the observer:
-    var config = { attributes: true, childList: true, characterData: true, attributeFilter: ['class'] };
-    monarch_social_observer.observe(monarch_social,config);
+  
 
   }); // end document ready
 });
